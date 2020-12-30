@@ -1,0 +1,37 @@
+pragma solidity^0.5.0;
+
+contract abhvideo{
+    uint public videoCount=0;
+    string public name="abhvideo";
+
+    //create id struct mapping
+    mapping(uint=>video) public videos;
+
+    //create struct
+    struct video{
+    uint id;
+    string hash;
+    string title;
+    string description;
+    string category;
+    string tags;
+    address author;
+
+    //create event
+    
+    constructor() public {
+}
+
+}
+function uploadVideo(string memory _videohash, string memory _title, string memory _description, string memory _category, string memory _tags) public {
+    //make sure the videohash exists
+    //make sure the video title exists
+    //make sure the video description exists
+    //make sure the video category exists
+    //make sure the video tags exists
+    //make sure uploader address exists
+    //increment videoid
+    //add video to the contract
+    //trigger an event
+    
+}
