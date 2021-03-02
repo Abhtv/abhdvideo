@@ -1,0 +1,45 @@
+//TronLink Integration
+//TronLink, similar to MetaMask, is a bridge for allowing TRON DApps to run in the browser //without having to deploy a TRON Full Node. If a user has TronLink already installed in the //Chrome extension, then TronLink injects a version of TronWeb into every browser page. This //allows for the web DApp to interact with the TRON network. Let's learn it with a simple example:
+
+async componentDidMount() {
+
+    this.setState({loading:true})
+    await new Promise(resolve => {
+        const tronWebState = {
+            installed: !!window.tronWeb,
+            loggedIn: window.tronWeb && window.tronWeb.ready
+        };
+
+        if(tronWebState.installed) {
+            this.setState({
+                tronWeb:
+                tronWebState
+            });
+            return resolve();
+        }
+    });
+}
+
+
+//Function checks to see if tronweb is installed or not.
+//If a user does not have TronLink or a similar application installed, then they most likely also don't //have TronWeb in the browser when they use your web DApp. 
+//In this case, you can write a function that checks for 
+//tronWeb in the 
+//window object, and defines the HTTP ports for the user. The function can be written as below: 
+
+window.onload = function() {
+  if (!window.tronWeb) {
+    const HttpProvider = TronWeb.providers.HttpProvider;
+    const fullNode = new HttpProvider('https://api.trongrid.io');
+    const solidityNode = new HttpProvider('https://api.trongrid.io');
+    const eventServer = 'https://api.trongrid.io/';
+    
+    const tronWeb = new TronWeb(
+        fullNode,
+        solidityNode,
+        eventServer,
+    );
+
+    window.tronWeb = tronWeb;
+  }
+};
